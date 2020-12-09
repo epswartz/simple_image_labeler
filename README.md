@@ -1,4 +1,4 @@
-# simple-image-labeler
+# simple_image_labeler
 
 A very simple web app to annotate images with bounding boxes for single-class object detection.
 
