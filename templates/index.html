@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Labeler</title>
+    <link rel="stylesheet" href="../static/css/index.css" type=text/css>
+  </head>
+  <body>
+    <form method="post" action="/" id="submit_bbox">
+      <input type="submit" name="next" value="Next Image">
+      <input type="text" name="bbox" id="bbox_field">
+    </form>
+    <img src=current_img alt="Image to label" id="current_img">
+    <script type="application/javascript">
+      let x1
+      let x2
+      let y1
+      let y2
+      let inProgress = false
+      document.getElementById('current_img').onclick = function clickEvent(e) {
+        // e = Mouse click event.
+        var rect = e.target.getBoundingClientRect();
+        if(!inProgress){
+          x1 = e.clientX - rect.left; //x position within the element.
+          y1 = e.clientY - rect.top;  //y position within the element.
+          inProgress = true
+        } else {
+          x2 = e.clientX - rect.left; //x position within the element.
+          y2 = e.clientY - rect.top;  //y position within the element.
+
+          inProgress = false
+          // Convert to nautral width and height of img
+          img = document.getElementById('current_img')
+          x1 = Math.round((x1 / img.width) * img.naturalWidth)
+          x2 = Math.round((x2 / img.width) * img.naturalWidth)
+          y1 = Math.round((y1 / img.height) * img.naturalHeight)
+          y2 = Math.round((y2 / img.height) * img.naturalHeight)
+          console.log(`Bounding Box: [${x1},${x2},${y1},${y2}]`)
+          document.getElementById("bbox_field").value = [x1,y1,x2,y2]
+
+        }
+      }
+    </script>
+  </body>
+</html>

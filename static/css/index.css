@@ -1,0 +1,11 @@
+img{
+    max-height:800px;
+    max-width:800px;
+    height:auto;
+    width:auto;
+    margin:auto;
+}
+
+#bbox_field{
+    display: none;
+}
