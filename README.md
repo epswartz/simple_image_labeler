@@ -1,6 +1,9 @@
 # simple_image_labeler
+![Demo Image](./demo.png)
 
 A very simple web app to annotate images with bounding boxes for single-class object detection.
+
+Careful with refresh I'm still figuring out some form resub bs
 
 ## Installation
 1. Clone this repo
