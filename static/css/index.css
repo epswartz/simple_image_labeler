@@ -4,6 +4,11 @@ img{
     height:auto;
     width:auto;
     margin:auto;
+    border: 1px solid #000000;
+}
+
+#submit_btn{
+    margin: 2px;
 }
 
 #image_container{
