@@ -1,5 +1,5 @@
 # simple_image_labeler
-![Demo Image](./demo.png | width 100)
+<img src="./demo.png" width=100 />
 
 A very simple web app to annotate images with bounding boxes for single-class object detection.
 
