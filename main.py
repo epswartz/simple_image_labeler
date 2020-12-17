@@ -5,6 +5,8 @@ import os
 from glob import glob
 from tqdm import tqdm
 
+
+
 IMG_EXTENSIONS = ["png", "jpg", "jpeg", "gif"]
 
 
@@ -70,6 +72,7 @@ next_image() # Call it once to skip past all the images that were already done, 
 print(f"Current Index:{image_idx}/{len(image_paths)}")
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # Don't cache the CSS file/the template.
 
 @app.route('/current_img', methods=["GET"])
 def current_img():

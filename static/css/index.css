@@ -6,6 +6,17 @@ img{
     margin:auto;
 }
 
+#image_container{
+    position:relative;
+}
+
+#rect{
+    position:absolute;
+    border:2px solid #FF0000;
+}
+
 #bbox_field{
     display: none;
 }
+
+
