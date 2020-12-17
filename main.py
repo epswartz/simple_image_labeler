@@ -5,6 +5,8 @@ import os
 from glob import glob
 from tqdm import tqdm
 
+
+
 IMG_EXTENSIONS = ["png", "jpg", "jpeg", "gif"]
 
 
@@ -67,8 +69,10 @@ def next_image():
         image_idx += 1
 
 next_image() # Call it once to skip past all the images that were already done, resuming labeling if we stopped the server.
+print(f"Current Index:{image_idx}/{len(image_paths)}")
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # Don't cache the CSS file/the template.
 
 @app.route('/current_img', methods=["GET"])
 def current_img():
@@ -81,7 +85,7 @@ def current_img():
     path_split = image_paths[image_idx].split("/")
     filename = path_split[-1]
     subdir = "/".join(path_split[:-1])
-    return send_from_directory(subdir, filename)
+    return send_from_directory(subdir, filename, cache_timeout=1)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -92,7 +96,7 @@ def index():
         else:
             print("ERROR UNKNOWN POST")
     if image_idx < len(image_paths):
-        return render_template("index.html")
+        return render_template("index.html", current_image_index=image_idx, total_images=len(image_paths))
     else:
         return f"All images complete! Check {opt.csv} for bounding boxes."
 

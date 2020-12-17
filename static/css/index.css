@@ -4,8 +4,24 @@ img{
     height:auto;
     width:auto;
     margin:auto;
+    border: 1px solid #000000;
+}
+
+#submit_btn{
+    margin: 2px;
+}
+
+#image_container{
+    position:relative;
+}
+
+#rect{
+    position:absolute;
+    border:2px solid #FF0000;
 }
 
 #bbox_field{
     display: none;
 }
+
+

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Image Labeler</title>
+    <title>Simple Image Labeler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../static/css/index.css" type=text/css>
   </head>
   <body>
+    Click one corner (e.g. top left), then opposite corner (e.g. bottom right), then click Next Image.
     <form method="post" action="/" id="submit_bbox">
-      <input type="submit" name="next" value="Next Image">
+      <input type="submit" name="next" value="Next Image" class="btn btn-primary" id="submit_btn">
       <input type="text" name="bbox" id="bbox_field">
     </form>
-    <img src=current_img alt="Image to label" id="current_img">
+    Current Progress: {{ current_image_index }}/{{ total_images }}
+    <div id="image_container">
+      <img src=current_img alt="Image to label" id="current_img" stlye="width:100%">
+    </div>
+
     <script type="application/javascript">
       let x1
       let x2
@@ -28,6 +34,28 @@
           y2 = e.clientY - rect.top;  //y position within the element.
 
           inProgress = false
+
+          // Draw rectangle.
+          old_rect = document.getElementById("rect") // delete possible old one
+          if (old_rect) {
+            old_rect.remove()
+          }
+          ic = document.getElementById("image_container")
+          rectElement = document.createElement("div")
+          rectElement.id = "rect"
+
+          w = Math.abs(x2-x1) + "px"
+          h = Math.abs(y2-y1) + "px"
+          box_top = Math.min(y1,y2) + "px"
+          box_left = Math.min(x1,x2) + "px"
+
+          rectElement.style.width = w
+          rectElement.style.height = h
+          rectElement.style.top = box_top
+          rectElement.style.left = box_left
+
+          ic.appendChild(rectElement)
+
           // Convert to nautral width and height of img
           img = document.getElementById('current_img')
           x1 = Math.round((x1 / img.width) * img.naturalWidth)
