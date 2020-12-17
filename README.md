@@ -1,6 +1,6 @@
 # simple_image_labeler
 
-A very simple web app to annotate images with bounding boxes for single-class object detection.
+A very simple web app to annotate images with single rectangular, unrotated bounding boxes for single-class object detection.
 
 <img src="./demo.png" width=400 />
 
