@@ -67,6 +67,7 @@ def next_image():
         image_idx += 1
 
 next_image() # Call it once to skip past all the images that were already done, resuming labeling if we stopped the server.
+print(f"Current Index:{image_idx}/{len(image_paths)}")
 
 app = Flask(__name__)
 
@@ -78,6 +79,8 @@ def current_img():
 
     Ended up just making this route to serve the current img.
     """
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
     path_split = image_paths[image_idx].split("/")
     filename = path_split[-1]
     subdir = "/".join(path_split[:-1])
