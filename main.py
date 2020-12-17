@@ -79,12 +79,10 @@ def current_img():
 
     Ended up just making this route to serve the current img.
     """
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
     path_split = image_paths[image_idx].split("/")
     filename = path_split[-1]
     subdir = "/".join(path_split[:-1])
-    return send_from_directory(subdir, filename)
+    return send_from_directory(subdir, filename, cache_timeout=1)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
