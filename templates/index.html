@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Image Labeler</title>
+    <title>Simple Image Labeler</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../static/css/index.css" type=text/css>
   </head>
@@ -11,6 +11,7 @@
       <input type="submit" name="next" value="Next Image" class="btn btn-primary" id="submit_btn">
       <input type="text" name="bbox" id="bbox_field">
     </form>
+    Current Progress: {{ current_image_index }}/{{ total_images }}
     <div id="image_container">
       <img src=current_img alt="Image to label" id="current_img" stlye="width:100%">
     </div>

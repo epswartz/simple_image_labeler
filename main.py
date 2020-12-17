@@ -96,7 +96,7 @@ def index():
         else:
             print("ERROR UNKNOWN POST")
     if image_idx < len(image_paths):
-        return render_template("index.html")
+        return render_template("index.html", current_image_index=image_idx, total_images=len(image_paths))
     else:
         return f"All images complete! Check {opt.csv} for bounding boxes."
 
