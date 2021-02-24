@@ -7,6 +7,9 @@
   </head>
   <body>
     Click one corner (e.g. top left), then opposite corner (e.g. bottom right), then click Next Image.
+    <form method="get" action="/download_csv">
+      <button class="btn btn-primary" type="submit">Download CSV</button>
+    </form>
     <form method="post" action="/" id="submit_bbox">
       <input type="submit" name="next" value="Next Image" class="btn btn-primary" id="submit_btn">
       <input type="text" name="bbox" id="bbox_field">
