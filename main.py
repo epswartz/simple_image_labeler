@@ -5,10 +5,7 @@ import os
 from glob import glob
 from tqdm import tqdm
 
-
-
 IMG_EXTENSIONS = ["png", "jpg", "jpeg", "gif"]
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dir', required=True, help='Root folder of images, can have subdirs.')
@@ -40,7 +37,7 @@ print(f"Found {len(image_paths)} image files in directory.")
 
 def store_bbox(imgpath: str, bbox: str):
     print(f"Storing bbox for: {imgpath}")
-    x1,y1,x2,y2 = bbox.split(",")
+    x1, y1, x2, y2 = bbox.split(",")
 
     # Format such that x1 and y1 are lower ones
     if x1 > x2:
@@ -57,6 +54,7 @@ def store_bbox(imgpath: str, bbox: str):
 
 image_idx = 0 # index of the current image, the next one to be annotated.
 
+
 def next_image():
     """
     Updates the state of the app, changing the idx of the next image.
@@ -68,11 +66,24 @@ def next_image():
     while image_idx < len(image_paths) and image_paths[image_idx] in bbox_df['image_path'].values:
         image_idx += 1
 
+
 next_image() # Call it once to skip past all the images that were already done, resuming labeling if we stopped the server.
 print(f"Current Index:{image_idx}/{len(image_paths)}")
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1 # Don't cache the CSS file/the template.
+
+
+@app.route('/download_csv', methods=["GET"])
+def download_csv():
+    """
+    Downloads the current labels csv.
+    """
+    csv_path = os.path.realpath(opt.csv)
+    #bn = os.path.basename(csv_path)
+
+    return send_from_directory(os.path.dirname(csv_path), os.path.basename(csv_path), cache_timeout=1)
+
 
 @app.route('/current_img', methods=["GET"])
 def current_img():
@@ -87,6 +98,7 @@ def current_img():
     subdir = "/".join(path_split[:-1])
     return send_from_directory(subdir, filename, cache_timeout=1)
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == 'POST':
@@ -97,8 +109,8 @@ def index():
             print("ERROR UNKNOWN POST")
     if image_idx < len(image_paths):
         return render_template("index.html", current_image_index=image_idx, total_images=len(image_paths))
-    else:
-        return f"All images complete! Check {opt.csv} for bounding boxes."
+    return f"All images complete! Check {opt.csv} for bounding boxes."
+
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', debug=False)
