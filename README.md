@@ -8,7 +8,7 @@ Careful with refresh I'm still figuring out some form resub bs
 
 ## Installation
 1. Clone this repo
-2. Install `flask`, `glob`, `tqdm` and `pandas`
+2. Install `flask`, `tqdm` and `pandas`
 3. `python3 main.py --dir <your image directory (subdirs are ok)> [--csv <csv file to store boxes>]`
 4. Go to `http://localhost:5000`
 5. Click the corners of the bounding box, then click next image
